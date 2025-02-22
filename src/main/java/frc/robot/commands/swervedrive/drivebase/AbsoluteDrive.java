@@ -29,7 +29,7 @@ public class AbsoluteDrive extends Command
 
   /**
    * Used to drive a swerve robot in full field-centric mode.  vX and vY supply translation inputs, where x is
-   * torwards/away from alliance wall and y is left/right. headingHorzontal and headingVertical are the Cartesian
+   * towards/away from alliance wall and y is left/right. headingHorzontal and headingVertical are the Cartesian
    * coordinates from which the robot's angle will be derived— they will be converted to a polar angle, which the robot
    * will rotate to.
    *
