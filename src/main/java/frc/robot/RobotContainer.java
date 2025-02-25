@@ -39,10 +39,12 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverXbox.getLeftY() * -1,
                                                                 () -> driverXbox.getLeftX() * -1)
-                                                            .withControllerRotationAxis(driverXbox::getRightX)
+                                                            .withControllerRotationAxis(driverXbox::getRightX)                                           
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
+
+  
 
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
@@ -60,8 +62,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                         () -> -driverXbox.getLeftY(),
                                                                         () -> -driverXbox.getLeftX())
-                                                                    .withControllerRotationAxis(() -> driverXbox.getRawAxis(
-                                                                        2))
+                                                                    .withControllerRotationAxis(driverXbox::getRightX)
                                                                     .deadband(OperatorConstants.DEADBAND)
                                                                     .scaleTranslation(0.8)
                                                                     .allianceRelativeControl(true);
@@ -86,13 +87,15 @@ public class RobotContainer
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer()
-  {
+  public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+
   }
+  
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -105,21 +108,23 @@ public class RobotContainer
   {
 
     Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+    Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
     Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngle);
     Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
+    Command driveFieldOrientedAngularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
         driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation())
     {
-      drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
+      drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
+
     } else
     {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+      drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
+      
     }
 
     if (Robot.isSimulation())
@@ -130,7 +135,7 @@ public class RobotContainer
     }
     if (DriverStation.isTest())
     {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+      drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity); // Overrides drive command above!
 
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
