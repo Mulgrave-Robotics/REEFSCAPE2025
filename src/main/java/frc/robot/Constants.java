@@ -6,7 +6,20 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
 import swervelib.math.Matter;
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Meters;
+/* 
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.MetersPerSecondPerSecond;
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.Second;
+
+*/
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -49,4 +62,18 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+
+  public static class IntakeConstants
+    {
+
+      public static final double AlgaeIntakeSpeeds  = 0.1;
+      public static final double AlgaeOuttakeSpeeds = -0.1;
+      public static       int    algaeUpperMotorID  = 14;
+      public static       int    algaeLowerMotorID  = 15;
+
+      public static final double CoralIntakeSpeeds  = 0.1;
+      public static final double CoralOuttakeSpeeds = -0.1;
+      public static final int    coralMotorID  = 11;
+      public static final double kIntakeReduction    = 0;
+    }
 }
