@@ -17,10 +17,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ButtonConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.swervedrive.CoralIntakeSubsystem;
 import frc.robot.subsystems.swervedrive.ElevatorSubsystem;
+import frc.robot.subsystems.swervedrive.ElevatorSubsystemBinary;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 // import java.io.File;
 import swervelib.SwerveInputStream;
@@ -39,6 +41,7 @@ public class RobotContainer
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem();
   private final AlgaeIntakeSubsystem algaeIntake = new AlgaeIntakeSubsystem();
   private final CoralIntakeSubsystem coralIntake = new CoralIntakeSubsystem();
+  // private final ElevatorSubsystemBinary elevatorBinary = new ElevatorSubsystemBinary();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
 
   /**
@@ -136,14 +139,16 @@ public class RobotContainer
     } else
     {
       drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
-      driverXbox.button(ButtonConstants.xboxX).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
-      driverXbox.button(ButtonConstants.xboxB).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeOuttakeSpeeds));
+      // driverXbox.button(ButtonConstants.xboxX).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
+      // driverXbox.button(ButtonConstants.xboxB).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeOuttakeSpeeds));
       
       driverXbox.button(ButtonConstants.xboxLB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
       driverXbox.button(ButtonConstants.xboxRB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralIntakeSpeeds));
       
-      driverXbox.button(ButtonConstants.xboxY).whileTrue(elevator.moveUp());
-      driverXbox.button(ButtonConstants.xboxA).whileTrue(elevator.moveDown());
+      driverXbox.button(ButtonConstants.xboxY).onTrue(elevator.moveTo(ElevatorConstants.vL4Height));
+      driverXbox.button(ButtonConstants.xboxX).onTrue(elevator.moveTo(ElevatorConstants.vL3Height));
+      driverXbox.button(ButtonConstants.xboxB).onTrue(elevator.moveTo(ElevatorConstants.vL2Height));
+      driverXbox.button(ButtonConstants.xboxA).onTrue(elevator.moveTo(ElevatorConstants.vL1Height));
       
     }
 
@@ -166,6 +171,7 @@ public class RobotContainer
       
     } else
     {
+      /* 
       driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       driverXbox.b().whileTrue(
@@ -176,6 +182,7 @@ public class RobotContainer
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.rightBumper().onTrue(Commands.none());
+      */
     }
 
   }

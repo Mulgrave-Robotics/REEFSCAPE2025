@@ -69,12 +69,13 @@ public final class Constants
   }
 
   public static final class ElevatorConstants {
-    public static final int elevatorUpperMotorID = 10;
-    public static final int elevatorLowerMotorID = 9;
+    public static final int elevatorUpperMotorID = 9;
+    public static final int elevatorLowerMotorID = 10;
+    // Motor ID 10 is the bad one, so lower ID is bad one and also must be positive speed
 
     // public static final double kGearRatio = 4.4 * 300;
     // Calculated by Lok
-    public static final double kGearRatio = 0.2045;
+    public static final double kGearRatio = 0.255;
     
     // up to level 2 for now
     public static final int kMaxLevel = 2;
@@ -84,6 +85,8 @@ public final class Constants
     // set base vertical height
     public static final double eL1Height = 0.0;
     // set base slant height
+
+    // TODO: 28.55 IS UNCERTAIN. MEASURE INTAKE HEIGHT FROM GROUND.
 
     public static final double vL2Height = 3.17;
     // 31.72 - 28.55
@@ -128,11 +131,10 @@ public final class Constants
 
       public static final double AlgaeIntakeSpeeds  = 0.1;
       public static final double AlgaeOuttakeSpeeds = -0.1;
-      public static       int    algaeUpperMotorID  = 14;
-      public static       int    algaeLowerMotorID  = 15;
+      public static       int    algaeUpperMotorID  = 21;
 
-      public static final double CoralIntakeSpeeds  = 0.1;
-      public static final double CoralOuttakeSpeeds = -0.1;
+      public static final double CoralIntakeSpeeds  = 0.2;
+      public static final double CoralOuttakeSpeeds = 0.5;
       public static final int    coralMotorID  = 11;
       public static final double kIntakeReduction    = 0;
     }
