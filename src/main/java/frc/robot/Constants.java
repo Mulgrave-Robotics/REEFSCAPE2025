@@ -46,6 +46,21 @@ public final class Constants
 //    public static final PIDConstants ANGLE_PID       = new PIDConstants(0.4, 0, 0.01);
 //  }
 
+  public static final class ButtonConstants
+  {
+    public static final int xboxA = 1;
+    public static final int xboxB = 2;
+    public static final int xboxX = 3;
+    public static final int xboxY = 4;
+
+    public static final int xboxLB = 5;
+    public static final int xboxRB = 6;
+    public static final int xboxMAPS = 7;
+    public static final int xboxLINES = 8;
+    public static final int xboxLeftJoystickDown = 9;
+    public static final int xboxRightJoystickDown = 10;
+  }
+
   public static final class DrivebaseConstants
   {
 
@@ -53,7 +68,52 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
   }
 
-  public static class OperatorConstants
+  public static final class ElevatorConstants {
+    public static final int elevatorUpperMotorID = 10;
+    public static final int elevatorLowerMotorID = 9;
+
+    // public static final double kGearRatio = 4.4 * 300;
+    // Calculated by Lok
+    public static final double kGearRatio = 0.2045;
+    
+    // up to level 2 for now
+    public static final int kMaxLevel = 2;
+    public static final int kMinLevel = 0;
+    //public static final double kIntakeBaseHeight = 28.55;
+    public static final double vL1Height = 0.0;
+    // set base vertical height
+    public static final double eL1Height = 0.0;
+    // set base slant height
+
+    public static final double vL2Height = 3.17;
+    // 31.72 - 28.55
+    public static final double eL2Height = 3.22;
+    // 3.17 / sin(79.99)
+
+    public static final double vL3Height = 19.04;
+    // 47.59 - 28.55
+    public static final double eL3Height = 19.33;
+    // 19.04 / sin(79.99)
+
+    public static final double vL4Height = 43.32;
+    // 71.87 - 28.55
+    public static final double eL4Height = 43.98;
+    // 43.32 / sin(79.99)
+
+    public static final double kElevatorDefaultTolerance = 1.0;
+
+    public static final double kPositionConversionFactor = 1.0; // Adjust based on encoder specs
+    public static final double kZeroOffset = 0.0; // Adjust if needed
+
+    public static final double kEncoderCountsPerRotation = 42;
+    public static final double kMaxSpeedPercentage = 0.1;
+
+    public static final double kP = 0.1;
+    public static final double kI = 0;
+    public static final double kD = 0;
+  }
+
+  public static final class OperatorConstants
   {
 
     // Joystick Deadband
@@ -63,7 +123,7 @@ public final class Constants
     public static final double TURN_CONSTANT    = 6;
   }
 
-  public static class IntakeConstants
+  public static final class IntakeConstants
     {
 
       public static final double AlgaeIntakeSpeeds  = 0.1;

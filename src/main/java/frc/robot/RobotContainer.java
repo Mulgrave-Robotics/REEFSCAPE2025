@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ButtonConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.swervedrive.CoralIntakeSubsystem;
+import frc.robot.subsystems.swervedrive.ElevatorSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 // import java.io.File;
 import swervelib.SwerveInputStream;
@@ -37,6 +39,7 @@ public class RobotContainer
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem();
   private final AlgaeIntakeSubsystem algaeIntake = new AlgaeIntakeSubsystem();
   private final CoralIntakeSubsystem coralIntake = new CoralIntakeSubsystem();
+  private final ElevatorSubsystem elevator = new ElevatorSubsystem();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -95,6 +98,7 @@ public class RobotContainer
   public RobotContainer() {
     algaeIntake.setDefaultCommand(algaeIntake.setAlgaeIntakeRoller(0));
     coralIntake.setDefaultCommand(coralIntake.setCoralIntakeRoller(0));
+
     
     // Configure the trigger bindings
     configureBindings();
@@ -132,10 +136,14 @@ public class RobotContainer
     } else
     {
       drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
-      driverXbox.button(18).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeOuttakeSpeeds));
-      driverXbox.button(19).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
-      driverXbox.button(1).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
-      driverXbox.button(2).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralIntakeSpeeds));
+      driverXbox.button(ButtonConstants.xboxX).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
+      driverXbox.button(ButtonConstants.xboxB).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeOuttakeSpeeds));
+      
+      driverXbox.button(ButtonConstants.xboxLB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
+      driverXbox.button(ButtonConstants.xboxRB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralIntakeSpeeds));
+      
+      driverXbox.button(ButtonConstants.xboxY).whileTrue(elevator.moveUp());
+      driverXbox.button(ButtonConstants.xboxA).whileTrue(elevator.moveDown());
       
     }
 
