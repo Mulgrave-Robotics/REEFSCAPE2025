@@ -104,6 +104,9 @@ public class RobotContainer
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    NamedCommands.registerCommand("coralOuttake", coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
+    NamedCommands.registerCommand("coralOuttakeStop", coralIntake.setCoralIntakeRoller(0.0));
+
     algaeIntake.setDefaultCommand(algaeIntake.setAlgaeIntakeRoller(0));
     coralIntake.setDefaultCommand(coralIntake.setCoralIntakeRoller(0));
 
