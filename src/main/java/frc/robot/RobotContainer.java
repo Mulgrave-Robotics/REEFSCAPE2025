@@ -5,6 +5,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -55,7 +57,8 @@ public class RobotContainer
                                                             .withControllerRotationAxis(driverXbox::getRightX)                                           
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
+                                                            // TODO: switched alliance relative control -> should test before match
 
   
 
@@ -103,6 +106,13 @@ public class RobotContainer
   public RobotContainer() {
     algaeIntake.setDefaultCommand(algaeIntake.setAlgaeIntakeRoller(0));
     coralIntake.setDefaultCommand(coralIntake.setCoralIntakeRoller(0));
+
+    // Command [name] = new subsystem.command();
+
+    // do L1, coral outtake, have param = Constants.IntakeConstants.CoralOuttakeSpeeds
+    // have another command to stop elevator
+
+    // like below, NamedCommands.registerCommand("name", Commands.something());
 
     
     // Configure the trigger bindings
@@ -154,8 +164,8 @@ public class RobotContainer
       // right bumper greater than 0.2 = go on coral scoring
 
       driverXbox.button(ButtonConstants.xboxRB).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
-      driverXbox.axisGreaterThan(2, 0.2).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
-      // left bumper greater than 0.2 = go on coral scoring
+      driverXbox.axisGreaterThan(2, 0.2).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeOuttakeSpeeds));
+      // left bumper greater than 0.2 = go on algae scoring
     }
 
     if (Robot.isSimulation())
@@ -201,7 +211,8 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    // return drivebase.getAutonomousCommand("New Auto");
+    return new PathPlannerAuto("Auto1");
   }
 
   public void setMotorBrake(boolean brake)
