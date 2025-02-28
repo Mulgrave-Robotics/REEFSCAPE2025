@@ -144,14 +144,18 @@ public class RobotContainer
       // driverXbox.button(ButtonConstants.xboxX).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
       // driverXbox.button(ButtonConstants.xboxB).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeOuttakeSpeeds));
       
-      driverXbox.button(ButtonConstants.xboxLB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
-      driverXbox.button(ButtonConstants.xboxRB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralIntakeSpeeds));
-      
       driverXbox.button(ButtonConstants.xboxY).onTrue(elevator.moveTo(ElevatorConstants.vL4Height));
       driverXbox.button(ButtonConstants.xboxX).onTrue(elevator.moveTo(ElevatorConstants.vL3Height));
       driverXbox.button(ButtonConstants.xboxB).onTrue(elevator.moveTo(ElevatorConstants.vL2Height));
       driverXbox.button(ButtonConstants.xboxA).onTrue(elevator.moveTo(ElevatorConstants.vL1Height));
-      
+
+      driverXbox.button(ButtonConstants.xboxRB).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralIntakeSpeeds));
+      driverXbox.axisGreaterThan(3, 0.2).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
+      // right bumper greater than 0.2 = go on coral scoring
+
+      driverXbox.button(ButtonConstants.xboxRB).whileTrue(algaeIntake.setAlgaeIntakeRoller(Constants.IntakeConstants.AlgaeIntakeSpeeds));
+      driverXbox.axisGreaterThan(2, 0.2).whileTrue(coralIntake.setCoralIntakeRoller(Constants.IntakeConstants.CoralOuttakeSpeeds));
+      // left bumper greater than 0.2 = go on coral scoring
     }
 
     if (Robot.isSimulation())
