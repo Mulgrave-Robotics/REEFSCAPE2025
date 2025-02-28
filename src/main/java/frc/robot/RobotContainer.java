@@ -22,8 +22,9 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.swervedrive.CoralIntakeSubsystem;
 import frc.robot.subsystems.swervedrive.ElevatorSubsystem;
-import frc.robot.subsystems.swervedrive.ElevatorSubsystemBinary;
+// import frc.robot.subsystems.swervedrive.ElevatorSubsystemBinary;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+// import frc.robot.subsystems.swervedrive.ElevatorTest;
 // import java.io.File;
 import swervelib.SwerveInputStream;
 
@@ -43,6 +44,7 @@ public class RobotContainer
   private final CoralIntakeSubsystem coralIntake = new CoralIntakeSubsystem();
   // private final ElevatorSubsystemBinary elevatorBinary = new ElevatorSubsystemBinary();
   private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+  // private final ElevatorTest elevatorTest = new ElevatorTest();
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.

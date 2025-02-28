@@ -124,6 +124,9 @@
       "FMSInfo": {
         "open": true
       },
+      "LiveWindow": {
+        "open": true
+      },
       "SmartDashboard": {
         "Encoders": {
           "open": true
@@ -142,7 +145,13 @@
         },
         "open": true,
         "swerve": {
+          "advantagescope": {
+            "open": true
+          },
           "double[]##v_/SmartDashboard/swerve/wheelLocation": {
+            "open": true
+          },
+          "modules": {
             "open": true
           },
           "open": true
@@ -151,6 +160,15 @@
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
+    "Connections": {
+      "open": true
+    },
+    "Server": {
+      "open": true
+    },
     "visible": true
   }
 }

@@ -30,22 +30,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         currentHeight = 0;
 
-        // ✅ Motor Configuration
-        SparkFlexConfig upperMotorConfig = new SparkFlexConfig();
-        SparkFlexConfig lowerMotorConfig = new SparkFlexConfig();
-
-        upperMotorConfig
-                .smartCurrentLimit(40)  // Reduced from 50A to prevent brownouts
+        // Motor Configuration
+        SparkFlexConfig motorConfig = new SparkFlexConfig();
+        motorConfig
+                .smartCurrentLimit(40)  // Set current limit to 40A
                 .idleMode(IdleMode.kBrake);
 
-        lowerMotorConfig
-                .apply(upperMotorConfig)
-                .idleMode(IdleMode.kBrake)
-                .inverted(true);
-
         // ✅ Apply configurations
-        upperMotor.configure(upperMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        lowerMotor.configure(lowerMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        upperMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        lowerMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
 
         // ✅ Encoder setup
@@ -63,21 +56,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void reachLevel(double targetHeight){
 
         currentHeight = getPositionInches();
+        double speed = 0;
         
         if (targetHeight > currentHeight)
         {
 
-            upperMotor.set(ElevatorConstants.kMaxSpeedPercentage * 1.0);
-            // positive
-            //lowerMotor.set(ElevatorConstants.kMaxSpeedPercentage * 1.0);
+            speed = ElevatorConstants.kMaxSpeedPercentage * 1.0;
+
 
         }
 
         else if (targetHeight < currentHeight)
         {
-            upperMotor.set(ElevatorConstants.kMaxSpeedPercentage * -1.0);
-            // negative
-            //lowerMotor.set(ElevatorConstants.kMaxSpeedPercentage * -1.0);
+            speed = ElevatorConstants.kMaxSpeedPercentage * -1.0;
+
         }
 
         else 
@@ -85,6 +77,9 @@ public class ElevatorSubsystem extends SubsystemBase {
             SmartDashboard.putString("elevator height status", "Elevator is already at wanted height!");
         }
 
+        upperMotor.set(speed);
+        lowerMotor.set(speed); // Sync lower motor with upper motor
+        SmartDashboard.putNumber("speed", speed);
         SmartDashboard.putNumber("currentHeight", currentHeight);
         
     }
@@ -100,7 +95,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         return setLevel(targetHeight)
         .until(() -> aroundHeight(targetHeight))
-        .andThen(() -> upperMotor.set(0.0));
+        .andThen(() -> {upperMotor.set(0.0);
+                        lowerMotor.set(0.0);}
+        );
 
     }
 

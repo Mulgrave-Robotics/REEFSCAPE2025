@@ -20,6 +20,9 @@ import static edu.wpi.first.units.Units.Second;
 
 */
 
+// coral intake wrong direction
+// elevator wrong direction
+// swerve = uncalibrated
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -109,7 +112,7 @@ public final class Constants
     public static final double kZeroOffset = 0.0; // Adjust if needed
 
     public static final double kEncoderCountsPerRotation = 42;
-    public static final double kMaxSpeedPercentage = 0.1;
+    public static final double kMaxSpeedPercentage = 0.15;
 
     public static final double kP = 0.1;
     public static final double kI = 0;
@@ -133,8 +136,8 @@ public final class Constants
       public static final double AlgaeOuttakeSpeeds = -0.1;
       public static       int    algaeUpperMotorID  = 21;
 
-      public static final double CoralIntakeSpeeds  = 0.2;
-      public static final double CoralOuttakeSpeeds = 0.5;
+      public static final double CoralIntakeSpeeds  = -0.1;
+      public static final double CoralOuttakeSpeeds = -0.3;
       public static final int    coralMotorID  = 11;
       public static final double kIntakeReduction    = 0;
     }
