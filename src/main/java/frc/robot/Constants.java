@@ -141,4 +141,9 @@ public final class Constants
       public static final int    coralMotorID  = 11;
       public static final double kIntakeReduction    = 0;
     }
+
+  public static final class LimelightConstants
+  {
+    
+  }
 }
